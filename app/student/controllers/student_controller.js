@@ -4,24 +4,16 @@
 **/
 const path = require('path');
 
-const studentService = require(path.resolve('app/student/service/student_service'))
+const studentService = require(path.resolve('app/student/services/studentService'))
 
 exports.index = async (req, res) => {
 
-    studentService.fetchStudent({id: '1'})
-	.then((r)=> {
-		res.json(r);
-	});
+  studentService.getStudents(req,res);
 
-    const results = await client
-      .query("SELECT * FROM books")
-      .then((payload) => {
-        return payload.rows;
-    })
-      .catch(() => {
-        throw new Error("Query failed");
-      });
-      res.setHeader("Content-Type", "application/json");
-      res.status(200);
-      res.send(JSON.stringify(results));
-  }
+}
+
+exports.store = async (req, res) => {
+
+  studentService.createStudents(req,res);
+
+}
