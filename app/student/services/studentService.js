@@ -2,7 +2,7 @@ const path = require('path');
 const studentRepo = require(path.resolve('app/student/repositories/studentsRepository'))
 
 //untuk logic
-exports.getStudents = async (req, res) => {
+exports.getStudents = async (res,page,limit) => {
 
     try{
         
@@ -14,11 +14,11 @@ exports.getStudents = async (req, res) => {
 
     }
 
-
 }
 
 
 exports.createStudents = async (req, res) => {
 
     studentRepo.createStudents(req,res);
+    
 }
