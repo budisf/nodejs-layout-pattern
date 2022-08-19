@@ -4,7 +4,6 @@ const client = config.data;
 
 module.exports.getAllStudents = async (skip, limit) => {
  
-
     const sql = 'SELECT * FROM coba ORDER BY id ASC LIMIT $1 offset $2';
     let data = await client.query(sql,[limit,skip]);
     return data;
