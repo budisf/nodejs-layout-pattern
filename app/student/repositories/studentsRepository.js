@@ -2,10 +2,11 @@ const path = require('path');
 const config = require(path.resolve('config/connection.js'));
 const client = config.data;
 
-module.exports.getAllStudents = async () => {
-    
-    const sql = 'SELECT * FROM coba ORDER BY id ASC';
-    let data = await client.query(sql);
+module.exports.getAllStudents = async (skip, limit) => {
+ 
+
+    const sql = 'SELECT * FROM coba ORDER BY id ASC LIMIT $1 offset $2';
+    let data = await client.query(sql,[limit,skip]);
     return data;
 
 }

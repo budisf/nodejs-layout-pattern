@@ -9,8 +9,8 @@ const Responses = require(path.resolve('response/responses'))
 
 exports.index = async (req, res) => {
   
-  let page = req.params.page ? req.params.page : 1;
-  let limit = req.params.limit ? req.params.limit : 10;
+  let page = req.query.page ? req.query.page : 0;
+  let limit = req.query.limit ? req.query.limit : 10;
 
   try {
     
@@ -24,7 +24,7 @@ exports.index = async (req, res) => {
 
     });
 
-   return data;
+    return data;
 
   }catch(err){
     

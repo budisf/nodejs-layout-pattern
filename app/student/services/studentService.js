@@ -6,7 +6,10 @@ exports.getStudents = async (page,limit) => {
 
     try{
         
-        let data = await studentRepo.getAllStudents();
+        var page = page == 0 ? 0 : page - 1 ;  
+        let skip = page * limit;
+        console.log(skip);
+        let data = await studentRepo.getAllStudents(skip,limit);
         return data.rows;
 
     }catch(err){
