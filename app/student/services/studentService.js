@@ -8,7 +8,6 @@ exports.getStudents = async (page,limit) => {
         
         var page = page == 0 ? 0 : page - 1 ;  
         let skip = page * limit;
-        console.log(skip);
         let data = await studentRepo.getAllStudents(skip,limit);
         return data.rows;
 
