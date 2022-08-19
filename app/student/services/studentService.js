@@ -2,23 +2,33 @@ const path = require('path');
 const studentRepo = require(path.resolve('app/student/repositories/studentsRepository'))
 
 //untuk logic
-exports.getStudents = async (res,page,limit) => {
+exports.getStudents = async (page,limit) => {
 
     try{
         
-        studentRepo.getAllStudents(res);
+        let data = await studentRepo.getAllStudents();
+        return data.rows;
 
     }catch(err){
 
-        responseServerError(err);
+        throw new Error(err);
 
     }
 
 }
 
 
-exports.createStudents = async (req, res) => {
+exports.createStudents = async (data) => {
 
-    studentRepo.createStudents(req,res);
+    try{
+        
+        let result = await studentRepo.createStudents(data);
+        return result;
+
+    }catch(err){
+
+        throw new Error(err);
+
+    }
     
 }

@@ -1,9 +1,8 @@
-class Response {
-    constructor(status = false, code = 400, message = "", data = null) {
+ class Response {
+    constructor(status = false, code = 400, message = "" ) {
         this.status = status;
         this.code = code;
         this.message = message;
-        this.data = data;
     }
 }
 

@@ -5,19 +5,30 @@
 const path = require('path');
 
 const studentService = require(path.resolve('app/student/services/studentService'))
+const Responses = require(path.resolve('response/responses'))
 
 exports.index = async (req, res) => {
   
-    let page = req.params.page ? req.params.page : 1;
-    let limit = req.params.limit ? req.params.limit : 10;
+  let page = req.params.page ? req.params.page : 1;
+  let limit = req.params.limit ? req.params.limit : 10;
 
   try {
+    
+    let data = await studentService.getStudents(page,limit)
+    .then(response =>{
+      if(response == 0){
+          return res.status(400).json(Responses.notFound("Data not found"));
+      }
+      result = Responses.list(response)
+      return res.status(200).json(result);
 
-    studentService.getStudents(res,page,limit);
+    });
+
+   return data;
 
   }catch(err){
-
-    return res.status(400).json({ status: 400, message: err.message });
+    
+    return res.status(500).json(Responses.serverError(err));
 
   }
 
@@ -25,6 +36,18 @@ exports.index = async (req, res) => {
 
 exports.store = async (req, res) => {
 
-  studentService.createStudents(req,res);
+  try{
+
+    let data = req.body ;
+    let result = await studentService.createStudents(data)  
+    .then(() => res.status(200).json(Responses.created(`Student`)));
+    return result;
+
+  }catch(err){
+    
+    return res.status(500).json(Responses.serverError(err));
+
+  }
+  
 
 }

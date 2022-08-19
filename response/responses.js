@@ -1,42 +1,46 @@
 const path = require('path');
+const ResponseClassList = require(path.resolve('response/baseResponseList'))
 const ResponseClass = require(path.resolve('response/baseResponse'))
 
-module.exports.responseStudent =  (error, results) => {
-    let responseReturn = new ResponseClass();
-    if (error) {
-        throw error
-    }
+let responseReturn = new ResponseClass();
+
+exports.list =  (results) => {
+    let responseReturn = new ResponseClassList();
 
     responseReturn.status = true;
     responseReturn.code = 200;
     responseReturn.message = "Success";
-    responseReturn.data = results.rows;
+    responseReturn.data = results;
 
     return responseReturn;
 }
 
-module.exports.responseCreateStudent =  (error, results) => {
-    let responseReturn = new ResponseClass();
-    if (error) {
-        throw error
-    }
+exports.created =  (message) => {
 
     responseReturn.status = true;
-    responseReturn.code = 201;
-    responseReturn.message = "Success Booking added";
-    responseReturn.data = results.rows;
+    responseReturn.code = 200;
+    responseReturn.message = `Data ${message} Created`;
 
-   return responseReturn;
+    return responseReturn;
 }
 
-module.exports.responseServerError =  (error) => {
+exports.serverError =  (error) => {
 
-    let responseReturn = new ResponseClass();
     responseReturn.status = false;
     responseReturn.code = 500;
-    responseReturn.message = "500 server error";
-    responseReturn.data = null;
+    responseReturn.message = error.message;
+    
+    return responseReturn;
 
-   return responseReturn;
+}
+
+exports.notFound =  (message) => {
+   
+    responseReturn.status = false;
+    responseReturn.code = 400;
+    responseReturn.message = message;
+    
+    return responseReturn;
+
 }
 
